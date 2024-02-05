@@ -1,9 +1,11 @@
 ---
-- name: 배포하기
+- name: Deploy Nginx service
   hosts: localhost
   become: yes
 
   tasks:
-    - name: Deploy Nginx service
+    - name: Create Nginx service
       command: docker service create --name mynginx --replicas 3 --constraint node.role==worker --with-registry-auth -p 8001:80 nginx
       ignore_errors: yes
+      environment:
+        PATH: "{{ ansible_env.PATH }}://usr/bin/docker"
