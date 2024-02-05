@@ -1,30 +1,8 @@
 ---
-- name: 도커
-  hosts: localhost
+- name: nginx 배포하기
+  hosts: all
   become: yes
 
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
-
   tasks:
-  #  - name: Set Docker swarm!!!!!!
-  #   docker_swarm:
-  #      state: present
-
-    - name: Install Nginx service
-      docker_swarm_service:
-        name: nginx_service
-        image: nginx
-        replicas: 3
-        published_ports:
-          - "80:80"
-
-    - name: index.html
-      get_url:
-        url: https://www.nginx.com
-        dest: /var/www/html
-
-    - name: Stop and Disable UFW
-      systemd:
-        name: ufw
-        state: stoppe
+    - name: nginx
+      shell: docker service create --name mynginx --replicas 3 --constraint node.role==worker --with-registry-auth -p 8008:80 nginx
