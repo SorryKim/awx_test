@@ -5,7 +5,7 @@
 
   tasks:
     - name: Set Docker swarm
-      docker_swarm:
+      docker_swarm_service:
         state: present
 
     - name: Install Nginx service
