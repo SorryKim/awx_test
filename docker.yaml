@@ -1,8 +1,9 @@
 ---
-- name: nginx 배포하기
+- name: 배포하기
   hosts: localhost
   become: yes
 
   tasks:
-    - name: nginx
-      shell: docker service create --name mynginx --replicas 3 --constraint node.role==worker --with-registry-auth -p 8008:80 nginx
+    - name: Deploy Nginx service
+      command: docker service create --name mynginx --replicas 3 --constraint node.role==worker --with-registry-auth -p 8001:80 nginx
+      ignore_errors: yes
