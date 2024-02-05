@@ -3,16 +3,19 @@
   hosts: localhost
   become: yes
 
+  vars_files:
+    - variables.yaml
+
   tasks:
     - name: Set Docker swarm
-      docker_swarm_service:
+      docker_swarm:
         state: present
 
     - name: Install Nginx service
       docker_swarm_service:
         name: nginx_service
         image: nginx
-        replicas: 3
+        replicas: 3  # 복제본을 각 노드에 배포합니다.
         published_ports:
           - "80:80"
 
