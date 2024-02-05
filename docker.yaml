@@ -7,7 +7,7 @@
     ansible_python_interpreter: /usr/bin/python3
 
   tasks:
-    - name: Set Docker swarm
+    - name: Set Docker swarm!!!!!!
       docker_swarm:
         state: present
 
