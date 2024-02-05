@@ -6,6 +6,5 @@
   tasks:
     - name: Create Nginx service
       command: docker service create --name mynginx --replicas 3 --constraint node.role==worker --with-registry-auth -p 8001:80 nginx
-      ignore_errors: yes
       environment:
-        PATH: "{{ ansible_env.PATH }}://usr/bin/docker"
+        PATH: "{{ ansible_env.PATH }}:/usr/bin/docker"
