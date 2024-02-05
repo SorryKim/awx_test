@@ -1,0 +1,28 @@
+---
+- name: 도커
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Set Docker swarm
+      docker_swarm:
+        state: present
+
+    - name: Install Nginx service
+      docker_swarm_service:
+        name: nginx_service
+        image: nginx
+        replicas: 3
+        published_ports:
+          - "80:80"
+
+    - name: index.html
+      get_url:
+        url: https://www.nginx.com
+        dest: /var/www/html
+
+    - name: Stop and Disable UFW
+      systemd:
+        name: ufw
+        state: stopped
+        enabled: false
