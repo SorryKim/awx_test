@@ -1,8 +1,8 @@
 ---
 - name: Deploy Nginx service
-  hosts: localhost
+  hosts: all
   become: yes
 
   tasks:
     - name: Create Nginx service
-      command: /usr/bin/docker service create --name mynginx --replicas 3 --constraint node.role==worker --with-registry-auth -p 8001:80 nginx
+      command: docker service create --name mynginx --replicas 3 --constraint node.role==worker --with-registry-auth -p 8001:80 nginx
