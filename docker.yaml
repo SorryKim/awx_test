@@ -3,8 +3,8 @@
   hosts: localhost
   become: yes
 
-  vars_files:
-    - variables.yaml
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 
   tasks:
     - name: Set Docker swarm
@@ -15,7 +15,7 @@
       docker_swarm_service:
         name: nginx_service
         image: nginx
-        replicas: 3  # 복제본을 각 노드에 배포합니다.
+        replicas: 3
         published_ports:
           - "80:80"
 
@@ -27,5 +27,4 @@
     - name: Stop and Disable UFW
       systemd:
         name: ufw
-        state: stopped
-        enabled: false
+        state: stoppe
